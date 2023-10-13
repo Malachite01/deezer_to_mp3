@@ -1,0 +1,8 @@
+google-api-python-client==2.74.0
+pytube
+pyyaml==6.0
+tqdm==4.64.1
+youtube-transcript-api==0.5.0
+requests
+flask
+yt_dlp
