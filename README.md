@@ -2,6 +2,9 @@
 
 # Setup
 
+Create a "credentials.yaml" file, with this syntax:
+api_key: "your youtube API key"
+
 # Installation
 ```
 pip install -r requirements.txt
