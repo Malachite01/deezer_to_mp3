@@ -20,3 +20,6 @@ https://www.youtube.com/watch?v=7HbfBwehGV4
 ```
 apt install ffmpeg
 ```
+
+# Disclaimer
+For personal use only, all the songs downloaded are copyrighted. 
