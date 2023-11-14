@@ -2,6 +2,9 @@
 
 # Setup
 
+Create a "credentials.yaml" file, with this syntax:
+api_key: "your youtube API key"
+
 # Installation
 ```
 pip install -r requirements.txt
@@ -17,3 +20,6 @@ https://www.youtube.com/watch?v=7HbfBwehGV4
 ```
 apt install ffmpeg
 ```
+
+# Disclaimer
+For personal use only, all the songs downloaded are copyrighted. 
