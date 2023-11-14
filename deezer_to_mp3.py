@@ -184,7 +184,7 @@ def main():
     api_url = "https://api.deezer.com/playlist/2263829342/tracks"
     data = {"playlist": []}
     
-    #DeezerMP3Backup
+    # DeezerMP3Backup
     json_playlist = playlist_to_json_file(OUTPUT_FILE, api_url, data)
     
     # YouTube Download
@@ -196,6 +196,10 @@ def main():
             download_mp3(video_query_url)
         else:
             print(f'No video IDs found for song: {song_name}')
+            
+    # Delete playlist.json
+    os.remove(OUTPUT_FILE)
+    
     return
 
 if __name__ == "__main__":
