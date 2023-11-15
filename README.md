@@ -25,6 +25,7 @@ pip install -r requirements.txt
 
 To use this project and save your playlist, you will first need your playlist number on Deezer. Your playlist number can be obtained in multiple ways via deeezer, on your web browser. In the url at the top of your browser, you can get your playlist number:
 
+![image](https://github.com/Malachite01/deezer_to_mp3/assets/112857106/5ede04cd-fa9c-4e38-80b7-d82f13847c45)
 
 # Disclaimer
 
