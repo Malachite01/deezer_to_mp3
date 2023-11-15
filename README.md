@@ -22,15 +22,22 @@ https://www.youtube.com/watch?v=7HbfBwehGV4
 apt install ffmpeg
 ```
 
-Then, you will need to install the project requirements.
+#### Requirements
+
+Then, you will have to install the project dependencies and requirements.
 
 ```
 pip install -r requirements.txt
 ```
 # Usage
 
-To use this project and save your playlist, you will first need your playlist number on Deezer. Your playlist number can be obtained in multiple ways via deeezer, on your web browser. In the url at the top of your browser, you can get your playlist number:
+To use this project and save your playlist, you will first need your playlist number on Deezer. Your playlist number can be obtained via Deezer, on your web browser. In the url at the top of your browser, you can get your playlist number:
 
+![image](https://github.com/Malachite01/deezer_to_mp3/assets/112857106/5ede04cd-fa9c-4e38-80b7-d82f13847c45)
+
+After obtaining your playlist number, simply execute the python script, and paste your playlist number.
+The script will then start saving your playlist in a temporary file that will be removed at the end of the download.
+After that, a "songs" folder will be created next to the script, in which all of your playlist will be stored as mp3 files.
 
 # Disclaimer
 
