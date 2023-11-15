@@ -16,7 +16,9 @@ https://www.youtube.com/watch?v=7HbfBwehGV4
 apt install ffmpeg
 ```
 
-Then, you will need to install the project requirements.
+#### Requirements
+
+Then, you will have to install the project dependencies and requirements.
 
 ```
 pip install -r requirements.txt
