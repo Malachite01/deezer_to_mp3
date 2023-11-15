@@ -29,6 +29,10 @@ To use this project and save your playlist, you will first need your playlist nu
 
 ![image](https://github.com/Malachite01/deezer_to_mp3/assets/112857106/5ede04cd-fa9c-4e38-80b7-d82f13847c45)
 
+After obtaining your playlist number, simply execute the python script, and paste your playlist number.
+The script will then start saving your playlist in a temporary file that will be removed at the end of the download.
+After that, a "songs" folder will be created next to the script, in which all of your playlist will be stored as mp3 files.
+
 # Disclaimer
 
 This project is for personal use only, all the songs downloaded via this project are copyrighted. I will not be held accountable for your actions.
