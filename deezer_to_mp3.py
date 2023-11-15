@@ -3,7 +3,6 @@ import json
 import os
 from yt_dlp import YoutubeDL
 
-
 #region DeezerMP3Backup.py
 def fetch_data(api_url):
     response = requests.get(api_url)
@@ -35,7 +34,7 @@ def simplify_data(data):
     return [simplified_data, song_nb]
 
 def playlist_to_json_file(OUTPUT_FILE, api_url, data):
-    # Fetch the plailyst data as json
+    # Fetch the playlist data as json
     while api_url:
         data["playlist"].append(fetch_data(api_url))
         
@@ -62,9 +61,7 @@ def playlist_to_json_file(OUTPUT_FILE, api_url, data):
 #endregion
 
 #region YoutubeAPI.py
-YOUTUBE_ENDPOINT = "https://www.youtube.com"
-
-def get_youtube_init_data(url):
+def get_yt_init_data(url):
     init_data = {}
     api_token = None
     context = None
@@ -84,8 +81,8 @@ def get_youtube_init_data(url):
         print(ex)
         return {"initdata": init_data, "apiToken": api_token, "context": context}
 
-def get_data(keyword, with_playlist=False, limit=0, options=None):
-    endpoint = f"{YOUTUBE_ENDPOINT}/results?search_query={keyword}"
+def get_yt_data(keyword, with_playlist=False, limit=0, options=None):
+    endpoint = f"https://www.youtube.com/results?search_query={keyword}"
     try:
         if options and isinstance(options, list) and len(options) > 0:
             type_option = next((opt["type"] for opt in options if "type" in opt), None)
@@ -99,7 +96,7 @@ def get_data(keyword, with_playlist=False, limit=0, options=None):
                 elif type_option.lower() == "movie":
                     endpoint += "&sp=EgIQBA%3D%3D"
 
-        page = get_youtube_init_data(endpoint)
+        page = get_yt_init_data(endpoint)
 
         section_list_renderer = page["initdata"]["contents"]["twoColumnSearchResultsRenderer"]["primaryContents"]["sectionListRenderer"]
 
@@ -136,7 +133,6 @@ def get_data(keyword, with_playlist=False, limit=0, options=None):
                                 "videoCount": playlist_render["videoCount"],
                                 "isLive": False
                             })
-
         api_token = page["apiToken"]
         context = page["context"]
         next_page_context = {"context": context, "continuation": cont_token}
@@ -147,19 +143,19 @@ def get_data(keyword, with_playlist=False, limit=0, options=None):
         print(ex)
         return {"error": str(ex)}
 
-def search_and_get_first_video_url(query):
-    data = get_data(query, limit=1)
+def search_get_first_video_url(query):
+    data = get_yt_data(query, limit=1)
     if "items" in data and data["items"]:
         first_video_id = data["items"][0].get("videoId", None)
         if first_video_id:
-            return f"{YOUTUBE_ENDPOINT}/watch?v={first_video_id}"
+            return f"https://www.youtube.com/watch?v={first_video_id}"
     return None
 
 def download_mp3(url):
     if not os.path.exists("songs/"):
         os.makedirs("songs/")
 
-    ydl_opts = {
+    yt_dl_opts = {
         'format': 'bestaudio/best',
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
@@ -169,7 +165,7 @@ def download_mp3(url):
         'outtmpl': 'songs/%(title)s.%(ext)s',
     }
 
-    with YoutubeDL(ydl_opts) as ydl:
+    with YoutubeDL(yt_dl_opts) as ydl:
         info_dict = ydl.extract_info(url, download=False)
         ydl.download([url])
 
@@ -181,7 +177,10 @@ def download_mp3(url):
 
 def main():
     OUTPUT_FILE = "playlist.json"
-    api_url = "https://api.deezer.com/playlist/2263829342/tracks"
+    playlist_number = None
+    while playlist_number == None: 
+        playlist_number = input("Enter the Deezer playlist number: ")
+    api_url = f"https://api.deezer.com/playlist/{playlist_number}/tracks"
     data = {"playlist": []}
     
     # DeezerMP3Backup
@@ -190,7 +189,7 @@ def main():
     # YouTube Download
     for item in json_playlist:
         song_name = item["song"]
-        video_query_url = search_and_get_first_video_url(song_name)
+        video_query_url = search_get_first_video_url(song_name)
 
         if video_query_url:
             download_mp3(video_query_url)
