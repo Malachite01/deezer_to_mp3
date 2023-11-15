@@ -19,7 +19,7 @@ https://www.youtube.com/watch?v=7HbfBwehGV4
 ### Linux
 
 ```
-apt install ffmpeg
+sudo apt-get install ffmpeg
 ```
 
 #### Requirements
