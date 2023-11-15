@@ -1,3 +1,9 @@
+- [Setup](#setup)
+    - [Windows](#windows)
+    - [Linux](#linux)
+- [Usage](#usage)
+- [Disclaimer](#disclaimer)
+
 # Setup
 
 To use this project, you will first need to install ffmpeg and ffprobe as they are dependencies of the yt_dlp python package.

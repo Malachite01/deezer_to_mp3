@@ -56,7 +56,7 @@ def playlist_to_json_file(OUTPUT_FILE, api_url, data):
     with open(OUTPUT_FILE, "w") as outfile:
         json.dump(filtered_data, outfile, indent=4)
     
-    print(f"Data simplified, {song_nb} songs found.")
+    print(f"Data simplified, {song_nb} songs found in your playlist.")
     return filtered_data
 #endregion
 
@@ -165,9 +165,9 @@ def download_mp3(url):
         'outtmpl': 'songs/%(title)s.%(ext)s',
     }
 
-    with YoutubeDL(yt_dl_opts) as ydl:
-        info_dict = ydl.extract_info(url, download=False)
-        ydl.download([url])
+    with YoutubeDL(yt_dl_opts) as yt_dl:
+        info_dict = yt_dl.extract_info(url, download=False)
+        yt_dl.download([url])
 
         if 'title' in info_dict:
             print(f'{info_dict["title"]} has been successfully downloaded as an MP3.')
@@ -198,6 +198,7 @@ def main():
             
     # Delete playlist.json
     os.remove(OUTPUT_FILE)
+    print("Your playlist has been downloaded !")
     
     return
 
