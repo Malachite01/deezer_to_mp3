@@ -1,6 +1,7 @@
 import requests
 import json
 import os
+from tqdm import tqdm
 from yt_dlp import YoutubeDL
 
 #region DeezerMP3Backup.py
@@ -151,7 +152,7 @@ def search_get_first_video_url(query):
             return f"https://www.youtube.com/watch?v={first_video_id}"
     return None
 
-def download_mp3(url):
+def download_mp3(url, progress_bar):
     if not os.path.exists("songs/"):
         os.makedirs("songs/")
 
@@ -170,6 +171,7 @@ def download_mp3(url):
         yt_dl.download([url])
 
         if 'title' in info_dict:
+            progress_bar.update(1)
             print(f'{info_dict["title"]} has been successfully downloaded as an MP3.')
         else:
             print('ERROR: Failed to download the video as an MP3.')
@@ -186,15 +188,17 @@ def main():
     # DeezerMP3Backup
     json_playlist = playlist_to_json_file(OUTPUT_FILE, api_url, data)
     
-    # YouTube Download
-    for item in json_playlist:
-        song_name = item["song"]
-        video_query_url = search_get_first_video_url(song_name)
+    # Initialize tqdm progress bar
+    with tqdm(total=len(json_playlist), desc="Downloading Songs", unit="song") as progress_bar:
+        # YouTube Download
+        for item in json_playlist:
+            song_name = item["song"]
+            video_query_url = search_get_first_video_url(song_name)
 
-        if video_query_url:
-            download_mp3(video_query_url)
-        else:
-            print(f'No video IDs found for song: {song_name}')
+            if video_query_url:
+                download_mp3(video_query_url, progress_bar)
+            else:
+                print(f'No video IDs found for song: {song_name}')
             
     # Delete playlist.json
     os.remove(OUTPUT_FILE)
