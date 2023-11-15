@@ -1,6 +1,7 @@
 - [Setup](#setup)
     - [Windows](#windows)
     - [Linux](#linux)
+      - [Requirements](#requirements)
 - [Usage](#usage)
 - [Disclaimer](#disclaimer)
 
@@ -38,6 +39,8 @@ To use this project and save your playlist, you will first need your playlist nu
 After obtaining your playlist number, simply execute the python script, and paste your playlist number.
 The script will then start saving your playlist in a temporary file that will be removed at the end of the download.
 After that, a "songs" folder will be created next to the script, in which all of your playlist will be stored as mp3 files.
+
+The progress bar at the bottom is the progress of your whole playlist download, and when a song is downloaded, its name is printed in the console. 
 
 # Disclaimer
 

@@ -10,7 +10,7 @@ def fetch_data(api_url):
     if response.status_code == 200:
         return response.json()
     else:
-        print(f'Failed to fetch data from the API : {response.status_code}')
+        tqdm.write(f'Failed to fetch data from the API : {response.status_code}')
         return
 
 def get_penultimate_next_url(file_path):
@@ -46,7 +46,7 @@ def playlist_to_json_file(OUTPUT_FILE, api_url, data):
         # Get the next URL of the playlist because the Deezer API only returns 25 songs at a time
         if api_url != get_penultimate_next_url(OUTPUT_FILE):
             api_url = get_penultimate_next_url(OUTPUT_FILE)
-            print(api_url)
+            tqdm.write(api_url)
         else:
             api_url = None
 
@@ -57,7 +57,7 @@ def playlist_to_json_file(OUTPUT_FILE, api_url, data):
     with open(OUTPUT_FILE, "w") as outfile:
         json.dump(filtered_data, outfile, indent=4)
     
-    print(f"Data simplified, {song_nb} songs found in your playlist.")
+    tqdm.write(f"Data simplified, {song_nb} songs found in your playlist.")
     return filtered_data
 #endregion
 
@@ -79,7 +79,7 @@ def get_yt_init_data(url):
         init_data = json.loads(yt_init_data)
         return {"initdata": init_data, "apiToken": api_token, "context": context}
     except Exception as ex:
-        print(ex)
+        tqdm.write(ex)
         return {"initdata": init_data, "apiToken": api_token, "context": context}
 
 def get_yt_data(keyword, with_playlist=False, limit=0, options=None):
@@ -141,7 +141,7 @@ def get_yt_data(keyword, with_playlist=False, limit=0, options=None):
 
         return {"items": items_result, "nextPage": {"nextPageToken": api_token, "nextPageContext": next_page_context}}
     except Exception as ex:
-        print(ex)
+        tqdm.write(ex)
         return {"error": str(ex)}
 
 def search_get_first_video_url(query):
@@ -157,6 +157,7 @@ def download_mp3(url, progress_bar):
         os.makedirs("songs/")
 
     yt_dl_opts = {
+        'quiet': True,
         'format': 'bestaudio/best',
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
@@ -172,9 +173,9 @@ def download_mp3(url, progress_bar):
 
         if 'title' in info_dict:
             progress_bar.update(1)
-            print(f'{info_dict["title"]} has been successfully downloaded as an MP3.')
+            tqdm.write(f'{info_dict["title"]} has been successfully downloaded as an MP3.')
         else:
-            print('ERROR: Failed to download the video as an MP3.')
+            tqdm.write('ERROR: Failed to download the video as an MP3.')
 #endregion
 
 def main():
@@ -198,11 +199,11 @@ def main():
             if video_query_url:
                 download_mp3(video_query_url, progress_bar)
             else:
-                print(f'No video IDs found for song: {song_name}')
+                tqdm.write(f'No video IDs found for song: {song_name}')
             
     # Delete playlist.json
     os.remove(OUTPUT_FILE)
-    print("Your playlist has been downloaded !")
+    tqdm.write("Your playlist has been downloaded !")
     
     return
 
