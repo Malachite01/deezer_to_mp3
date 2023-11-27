@@ -42,6 +42,8 @@ After that, a "songs" folder will be created next to the script, in which all of
 
 The progress bar at the bottom is the progress of your whole playlist download, and when a song is downloaded, its name is printed in the console. 
 
+If you launch the script again, after updating your Deezer playlist, it will only download newly added songs.
+
 # Disclaimer
 
 This project is for personal use only, all the songs downloaded via this project are copyrighted. I will not be held accountable for your actions.
