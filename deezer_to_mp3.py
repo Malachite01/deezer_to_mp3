@@ -169,13 +169,26 @@ def download_mp3(url, progress_bar):
 
     with YoutubeDL(yt_dl_opts) as yt_dl:
         info_dict = yt_dl.extract_info(url, download=False)
-        yt_dl.download([url])
-
+        
+        # Extracting the title from the info_dict
         if 'title' in info_dict:
-            progress_bar.update(1)
-            tqdm.write(f'{info_dict["title"]} has been successfully downloaded as an MP3.')
+            song_title = info_dict['title']
         else:
-            tqdm.write('ERROR: Failed to download the video as an MP3.')
+            tqdm.write('ERROR: Failed to get the title information.')
+            return
+
+        # Checking if the song is already downloaded
+        if os.path.exists(f"songs/{song_title}.mp3"):
+            tqdm.write(f'{song_title} is already downloaded. Skipping...')
+            progress_bar.update(1)
+        else:
+            yt_dl.download([url])
+
+            if 'title' in info_dict:
+                progress_bar.update(1)
+                tqdm.write(f'{song_title} has been successfully downloaded as an MP3.')
+            else:
+                tqdm.write('ERROR: Failed to download the video as an MP3.')
 #endregion
 
 def main():
