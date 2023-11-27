@@ -1,7 +1,7 @@
 - [Setup](#setup)
     - [Windows](#windows)
     - [Linux](#linux)
-      - [Requirements](#requirements)
+    - [Requirements](#requirements)
 - [Usage](#usage)
 - [Disclaimer](#disclaimer)
 
@@ -23,7 +23,7 @@ https://www.youtube.com/watch?v=7HbfBwehGV4
 sudo apt-get install ffmpeg
 ```
 
-#### Requirements
+### Requirements
 
 Then, you will have to install the project dependencies and requirements (no matter wether you are on Windows or Linux).
 
